@@ -105,14 +105,14 @@
                 // - якщо було зарахування, то суму відображати зеленим
                 // Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим
                 classesUAN() {
-                    if (this.colorbalanceUAH == 1) return 'green';
-                    else if (this.colorbalanceUAH == -1) return 'red';
+                    if (this.colorbalanceUAH == 1) return 'text-success';
+                    else if (this.colorbalanceUAH == -1) return 'text-danger';
                     else return '';
                 },
                 // ==================
                 classesCurrency() {
-                    if (this.balanceEUR < 100) return 'red';
-                    else return 'green'
+                    if (this.balanceEUR < 100) return 'text-danger';
+                    else return 'text-success'
                 }
             }
         }).mount('#app')
