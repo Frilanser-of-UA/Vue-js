@@ -25,6 +25,7 @@ body {
     padding-bottom: var(--pb);
     display: block;
     opacity: 0.5;
+    z-index: -1;
     > img,
     > svg {
         position: absolute;
