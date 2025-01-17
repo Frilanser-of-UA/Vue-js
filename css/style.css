@@ -17,7 +17,7 @@ body {
 }
 
 body {
-  line-height: 1;
+  line-height: 130%;
 }
 
 input,
@@ -36,6 +36,7 @@ button {
 a {
   color: inherit;
   cursor: pointer;
+  --bs-link-hover-color: #ffffff;
 }
 
 a:link,
@@ -55,16 +56,6 @@ img {
   vertical-align: top;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: inherit;
-  font-size: inherit;
-}
-
 body {
   background-color: #1a1a1a;
   color: rgba(255, 255, 255, 0.75);
@@ -78,9 +69,6 @@ body {
 }
 
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 25px;
   position: relative;
 }
 
@@ -105,12 +93,6 @@ body {
   left: 0;
   -o-object-fit: cover;
   object-fit: cover;
-}
-
-h1 {
-  font-size: 48px;
-  line-height: 120%;
-  margin-bottom: 20px;
 }
 
 .num-list {
@@ -138,7 +120,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
   font-weight: 500;
   font-size: 16px;
   margin-top: -2px;

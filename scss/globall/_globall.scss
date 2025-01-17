@@ -1,6 +1,6 @@
 body {
-    background-color: #1a1a1a;
-    color: rgba(255, 255, 255, 0.75);
+    background-color: $body-bg;
+    color: $body-color;
     font-family: sans-serif;
 }
 .page {
@@ -9,9 +9,6 @@ body {
     overflow: hidden;
 }
 .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 25px;
     position: relative;
 }
 
@@ -37,14 +34,8 @@ body {
         object-fit: cover;
     }
 }
-h1 {
-    font-size: 48px;
-    line-height: 120%;
-    margin-bottom: 20px;
-}
 .num-list {
     counter-reset: olcounter;
-
     li {
         counter-increment: olcounter;
         list-style: none;
@@ -61,12 +52,12 @@ h1 {
             height: 25px;
             width: 25px;
             flex: 0 0 25px;
-            background-color: #42b883;
+            background-color: $green-vue-bg;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffff;
+            color: $white;
             font-weight: 500;
             font-size: 16px;
             margin-top: -2px;
