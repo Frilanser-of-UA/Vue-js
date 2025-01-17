@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task2</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    Задача 2. Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима – пальто, літо – шорти ….).
+    Також автоматично виводити зображення з відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс, …).
+    <div id="app">
+        <label>
+            Номер місяця
+            <input type="number" v-model="numberMounth">
+        </label>
+        <hr>
+        <div>рекомендований одяг: <b>{{selectionOfClothes}}</b></div>
+        <img :src="mounthImg" alt="#">
+    </div>
+    <script>
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                    numberMounth: 1,
+                    winterCloth: "пальто",
+                    springCloth: "вітрівка",
+                    summerCloth: "шорти",
+                    autumnCloth: "парка",
+                    winterImg: "https://i.ibb.co/18M29Kt/winter.jpg",
+                    springImg: "https://i.ibb.co/y0Gq3C0/spring.jpg",
+                    summerImg: "https://i.ibb.co/SVB4Rhc/summer.jpg",
+                    autumnImg: "https://i.ibb.co/w7PNd1x/autumn.jpg",
+                }
+            },
+            computed: {
+                selectionOfClothes() {
+                    if (this.numberMounth >= 1 && this.numberMounth <= 2 || this.numberMounth == 12) return this.winterCloth
+                    if (this.numberMounth >= 3 && this.numberMounth <= 5) return this.springCloth
+                    if (this.numberMounth >= 6 && this.numberMounth <= 8) return this.summerCloth
+                    if (this.numberMounth >= 9 && this.numberMounth <= 11) return this.autumnCloth
+                    else return "Такого місяця не існує, введіть номер місяця від 1 до 12"
+                },
+                mounthImg() {
+                    if (this.numberMounth >= 1 && this.numberMounth <= 2 || this.numberMounth == 12) return this.winterImg
+                    if (this.numberMounth >= 3 && this.numberMounth <= 5) return this.springImg
+                    if (this.numberMounth >= 6 && this.numberMounth <= 8) return this.summerImg
+                    if (this.numberMounth >= 9 && this.numberMounth <= 11) return this.autumnImg
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

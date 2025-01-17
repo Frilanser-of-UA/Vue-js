@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task4</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .green {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Задача 4. “Рахунок у банку”
+    Вимоги:
+    1) Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.
+    2) Сума автоматично переводиться у долари та євро (фіксований курс задається у data).
+    3) можливість зарахувати суму (контролювати, щоб не була від’ємною)
+    4) можливість зняти (щоб не можна зняти більше ніж є на рахунку)
+    5) при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)
+
+    При зміні суми :
+    - якщо було зняття, то суму відоражати червоним
+    - якщо було зарахування, то суму відображати зеленим
+    Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим -->
+
+    <div id="app">
+        <div :class="classesUAN"> Сумма на рахунку: {{balanceUAH.toFixed(2)}} грн</div>
+        <div>
+            <label>
+                Зарахувати на рахунок:
+                <input type="number" v-model="summDeposit">
+            </label>
+            <button type="button" @click="deposit">Зарахувати</button>
+        </div>
+        <div>
+            <label>
+                Зняти з рахунку:
+                <input type="number" v-model="summWithdraw">
+            </label>
+            <button type="button" @click="withdraw">Зняти</button>
+        </div>
+        <div> Відсотки за обслуговування: {{commission.toFixed(2)}} грн</div>
+        <hr>
+        <div :class="classesCurrency"> Сумма у доларах: {{balanceUSD}} $</div>
+        <div :class="classesCurrency">Сума у євро: {{balanceEUR}} Є</div>
+    </div>
+    <script>
+        const persent = 0.03;
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                    balanceUAH: 0,
+                    summDeposit: 0,
+                    summWithdraw: 0,
+                    commission: 0,
+                    priceDollar: 42,
+                    priceEuro: 44,
+                    colorbalanceUAH: 0,
+                }
+            },
+            methods: {
+                deposit() {
+                    if (this.summDeposit > 0) {
+                        this.balanceUAH += this.summDeposit - (this.summDeposit * persent);
+                        this.commission = this.summDeposit * persent;
+                        this.colorbalanceUAH = 1;
+                        return;
+                    }
+                },
+                withdraw() {
+                    const totalAmount = this.summWithdraw + this.summWithdraw * persent;
+                    if (this.summWithdraw > 0 && totalAmount < this.balanceUAH) {
+                        this.balanceUAH -= totalAmount;
+                        this.commission = this.summWithdraw * persent;
+                        this.colorbalanceUAH = -1;
+                        return;
+                    }
+                }
+            },
+            computed: {
+                balanceUSD() {
+                    return (this.balanceUAH / this.priceDollar).toFixed(2)
+                },
+                balanceEUR() {
+                    return (this.balanceUAH / this.priceEuro).toFixed(2)
+                },
+                // При зміні суми:
+                //  - якщо було зняття, то суму відоражати червоним
+                // - якщо було зарахування, то суму відображати зеленим
+                // Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим
+                classesUAN() {
+                    if (this.colorbalanceUAH == 1) return 'green';
+                    else if (this.colorbalanceUAH == -1) return 'red';
+                    else return '';
+                },
+                // ==================
+                classesCurrency() {
+                    if (this.balanceEUR < 100) return 'red';
+                    else return 'green'
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
