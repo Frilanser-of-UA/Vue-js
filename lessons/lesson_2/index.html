@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <label>
+            Age
+            <input type="number" v-model="personAge">
+        </label>
+        <button type="button" v-if="personAgeEnter">reg</button>
+        <div v-else>Введіть коректний вік</div>
+        <div>Для реєстрації потрібно ввести вік</div>
+    </div>
+    <script>
+        const { createApp } = Vue
+
+        const app = createApp({
+            data() {
+                return {
+                    personAge: null,
+                }
+            },
+            computed: {
+                personAgeEnter() {
+                    return this.personAge && this.personAge >= 18
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
