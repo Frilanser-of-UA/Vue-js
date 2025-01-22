@@ -4,12 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/../css/style.css">
-    <title>Document</title>
+    <title>Task1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
 <body>
-    <h1>TASK 2</h1>
+    <!-- Задача 1. Вводимо логіна і пароль. Якщо логін вірний відображаємо смайл. Якщо ні, то:
+    1) якщо логін = Іван – колір повідомлення про помилку синій
+    2) якщо хтось інший, то колір повідомлення червоний -->
+
+
+    <div id="app">
+        <div class="page">
+            <div class="container">
+                <h1>Задача 1.</h1>
+                <div class="d-grid gap-3">
+                    <div class="mb-2">
+                        <label>
+                            Login
+                            <input class="form-control mt-2" type="text" v-model="login">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Password
+                            <input class="form-control mt-2" type="password" v-model="password">
+                        </label>
+                    </div>
+                    <template v-if="isMassege">
+                        <div class="fs-1 py-4 mb-2" v-if="isAuthorized">🙂 👌</div>
+                        <div class="fw-bold fs-5" v-else-if="isIvan" :class="classesCurrency">Ваш логін Ivan - Невірно введений</div>
+                        <div class="fw-bold fs-5" v-else-if="!isAuthorized" :class="classesCurrency">Невірно введений логін</div>
+                    </template>
+                    <div>
+                        <button class="btn btn-success" type="submit" @click="authLogin">Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { createApp } = Vue
+        const invelidLogin = 'Ivan'
+        const users = [
+            { login: 'user1', password: 'password1' },
+            { login: 'user2', password: 'password2' },
+            { login: 'user3', password: 'password3' },
+            { login: 'user4', password: 'password4' },
+            { login: 'user5', password: 'password5' },
+            { login: 'user6', password: 'password6' },
+            { login: 'user7', password: 'password7' },
+            { login: 'user8', password: 'password8' },
+            { login: 'user9', password: 'password9' },
+            { login: 'user10', password: 'password10' }
+        ]
+        createApp({
+            data() {
+                return {
+                    users: users,
+                    login: '',
+                    password: '',
+                    isAuthorized: false,
+                    isMassege: false,
+                    classColor: '',
+                }
+            },
+            computed: {
+                isIvan() {
+                    return this.login === invelidLogin
+                },
+                classesCurrency() {
+                    if (this.isAuthorized == false && this.isIvan) this.classColor = 'text-primary'
+                    else this.classColor = 'text-danger'
+                    return this.classColor
+                }
+            },
+            methods: {
+                authLogin() {
+                    const user = this.users.find((el) => {
+                        return el.login === this.login && el.password === this.password
+                    })
+                    if (user) this.isAuthorized = true
+                    else this.isAuthorized = false
+                    this.isMassege = true
+                },
+            }
+        }).mount('#app')
+    </script>
 </body>
 
 </html>
