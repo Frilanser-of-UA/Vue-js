@@ -68,7 +68,7 @@ body {
 .goole-icon {
     padding: 0.25rem;
     border-radius: 0.5rem;
-    background-color: rgba(#fff, 0.1);
+    background-color: rgba($white, 0.1);
     width: 40px;
     height: 40px;
     display: flex;
@@ -79,7 +79,7 @@ body {
             border: 1px solid $white;
             border-radius: 50%;
             overflow: hidden;
-            background-color: #fff;
+            background-color: $white;
             width: 30px;
             height: 30px;
         }

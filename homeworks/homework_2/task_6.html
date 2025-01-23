@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <!-- Задача 6. Задача. На кухню поступають замовлення. Спочатку ми додаємо їх у список “Очікують на виконання”, 
+     якщо повар береться робити — замовлення переходить у список “Виконуються”,   якщо замовлення виконано — 
+     переходить у список “Готові до виносу”. Якщо натиснути на “Подано” - страва зникає з таблиці 
+     Підказка: тут треба зберігати 3 масиви страв ( waitingList, processingList, completedList)
+     -->
+    <div id="app">
+        <div class="page">
+            <div class="container">
+                <h1>Задача 6.</h1>
+                <div class="d-flex align-items-center gap-3">
+                    <label for="input">
+                        Нова замовлена страва:
+                    </label>
+                    <input id="input" placeholder="Замовте страву" class="form-control w-25" type="text" v-model.trim="dishAdd">
+                    <button class="btn btn-success w-25" type="button" @click="getAddedInList">Додати</button>
+                </div>
+                <div class="mt-5 bg-white p-3 bg-opacity-10 rounded-2">
+                    <div v-if="visibleMenuList">
+                        <h3 class="text-center pb-3">Замовлення</h3>
+                        <div class="row g-2">
+                            <div class="col-4 text-center" v-for="title in titles" :key="title.id">
+                                <h4 class="bg-white text-dark rounded-2 p-2 m-0"> {{title.title}}</h4>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item" v-for="(waiting, ind) in waitingList" :key="ind">
+                                        <div class="d-flex align-items-center justify-content-between gap-2">
+                                            <span>{{waiting}}</span>
+                                            <button type="button" class="btn btn-sm btn-dark align-self-start" @click="onSelectWaiting(ind)">Готувати</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item" v-for="(processing, ind) in processingList" :key="ind">
+                                        <div class="d-flex align-items-center justify-content-between gap-2">
+                                            <span>{{processing}}</span>
+                                            <button type="button" class="btn btn-sm btn-dark align-self-start" @click="onSelectProcessing(ind)">Приготовлено</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item" v-for="(completed, ind) in completedList" :key="ind">
+                                        <div class="d-flex align-items-center justify-content-between gap-2">
+                                            <span>{{completed}}</span>
+                                            <button type="button" class="btn btn-sm btn-dark align-self-start" @click="onSelectCompleted(ind)">Подано</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center h4 mb-0 text-light" v-else>Введіть стрраву. Тут буде відображено список страв та їх прогрес приготування</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { createApp } = Vue
+        const progressTitles = [
+            {
+                id: 1,
+                title: "Очікують на виконання"
+            },
+            {
+                id: 2,
+                title: "Виконується"
+            },
+            {
+                id: 3,
+                title: "Готові до виносу"
+            }
+        ]
+
+
+        createApp({
+            data() {
+                return {
+                    titles: progressTitles,
+                    dishAdd: '',
+                    waitingList: [],
+                    processingList: [],
+                    completedList: [],
+                }
+            },
+            computed: {
+                visibleMenuList() {
+                    return this.waitingList.length != 0 || this.processingList.length != 0 || this.completedList.length != 0
+                }
+            },
+            methods: {
+                getAddedInList() {
+                    if (this.dishAdd) {
+                        this.waitingList.push(this.dishAdd)
+                        this.dishAdd = ''
+                    }
+                },
+                onSelectWaiting(ind) {
+                    this.processingList.push(this.waitingList[ind])
+                    this.waitingList.splice(ind, 1)
+                },
+                onSelectProcessing(ind) {
+                    this.completedList.push(this.processingList[ind])
+                    this.processingList.splice(ind, 1)
+                },
+                onSelectCompleted(ind) {
+                    this.completedList.splice(ind, 1)
+                },
+            }
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
