@@ -41,7 +41,7 @@
                             Недостатньо учасників для створення пар
                         </div>
                         <div class="text-center mt-5">
-                            <button type="button" class="btn btn-success" :disabled="isDisabled" @click="getAddPair()">Додати</button>
+                            <button type="button" class="btn btn-success" :disabled="isDisabled" @click="getAddPair">Додати</button>
                         </div>
                         <div class="mt-5" v-if="pairs.length > 0">
                             <h2>Обрані пари:</h2>
@@ -122,36 +122,12 @@
                         this.selectedBoy = null
                         this.selectedGirl = null
                     }
-
                 },
                 removePair(index) {
                     this.pairs.splice(index, 1);
                 }
-
-
             }
-
         }).mount('#app')
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
 </body>
 
