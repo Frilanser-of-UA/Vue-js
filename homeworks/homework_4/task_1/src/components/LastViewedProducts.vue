@@ -1,7 +1,7 @@
 <template>
-    <div class="last-viewed">
+    <div>
         <h2>Останні переглянуті товари</h2>
-        <div class="products">
+        <div class="row g-2">
             <ProductCard
                 v-for="product in products"
                 :key="product.id"
@@ -19,16 +19,14 @@ export default {
         ProductCard,
     },
     props: {
-        products: Array,
+        products: {
+            type: Array,
+            required: true,
+        },
     },
 };
 </script>
   
   <style scoped>
-.products {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
 </style>
   

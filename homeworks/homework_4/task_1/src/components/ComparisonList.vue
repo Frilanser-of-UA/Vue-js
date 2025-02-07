@@ -19,7 +19,10 @@
   <script>
 export default {
     props: {
-        products: Array,
+        products: {
+            type: Array,
+            required: true,
+        },
     },
 };
 </script>
@@ -29,8 +32,8 @@ export default {
     margin-bottom: 20px;
 }
 .phones img {
-    width: 50px;
-    margin-right: 5px;
+    width: 100px;
+    margin-right: 15px;
 }
 </style>
   

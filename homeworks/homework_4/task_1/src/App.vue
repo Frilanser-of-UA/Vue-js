@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <ComparisonList :products="comparisonProducts" />
         <LastViewedProducts :products="viewedProducts" />
     </div>
